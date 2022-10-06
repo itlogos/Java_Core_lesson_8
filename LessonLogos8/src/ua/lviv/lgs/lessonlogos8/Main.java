@@ -1,11 +1,63 @@
+/*
+ * LOGOS It Academy enum file
+ * 
+ * */
+
 package ua.lviv.lgs.lessonlogos8;
+
+
+/**
+ * @since java 1.8
+ * @author Oleg
+ * @version 1.1
+ * */
 
 import java.util.Scanner;
 
 public class Main {
+    
+    
+    /**
+     * @param Month[] mas, String month
+     * @exception WrongInputConsoleParametersException
+     * @author Oleg
+     * @see java code convention
+     * */
+    
+    // Викидайте даний exception, коли користувач введе неправильні дані.  
+    public void isMonthPresent(Month[] mas, String month) throws WrongInputConsoleParametersException{
+        
+        /* docs for boolean */
+        boolean flag = false;
+        
+        /* Checking for the existence of a month */
+        for (Month m : mas) {
+            if (m.name().equals(month)) {
+                System.out.println("Month exist");
+                flag = true;
+            }
+        }
+        
+        
+        /* Throw new WrongInputConsoleParametersException */
+        
+        // Перевіряе чи є такий місяць, та викидає exception, коли користувач введе неправильні дані.
+        
+        if (!flag) {
+            String message = "Invalid value. Please enter a valid month name.";
+            throw new WrongInputConsoleParametersException(message);
+        } 
 
-    public static void main(String[] args) {
+        }
 
+    /**
+     * @param no input params
+     * @author Oleg
+     * @see java code convention
+     * */
+    public static void main(String[] args) throws WrongInputConsoleParametersException {
+
+        /* reading the name of the month */
         
         // Перевірити чи є такий місяць (місяць вводимо з консолі, передбачити, щоб
         // регістр букв був не важливим)
@@ -15,16 +67,15 @@ public class Main {
             System.out.println("Enter month: ");
             Scanner sc = new Scanner(System.in);
             String month = sc.next().toUpperCase();
-            boolean flag = isMonthPresent(mas, month);
-
-            if (!flag) {
-                System.out.println("Month doesnt exit");
-                break;
-            }
-
+            Main exc = new Main();
+            exc.isMonthPresent(mas, month);
+            
+            
+            /* outputs all months with the same season */
+            
             // Вивести всі місяці з такою ж порою року.
 
-            flag = false;
+            boolean flag = false;
             Month month2 = Month.valueOf(month);
             for (Month m : mas) {
                 if (m.getSeason().name().equals(month2.getSeason().toString())) {
@@ -45,6 +96,9 @@ public class Main {
                 System.out.println("Month doesnt exit");
             }
 
+            
+            /* display all months that have the same number of days */
+            
             // Вивести всі місяці які мають таку саму кількість днів.
 
             flag = false;
@@ -66,7 +120,10 @@ public class Main {
             if (!flag) {
                 System.out.println("Month doesnt have same number of days");
             }
-
+            
+            
+            /* display all months with a smaller number of days */
+            
             // Вивести на екран всі місяці які мають меншу кількість днів.
 
             flag = false;
@@ -89,6 +146,9 @@ public class Main {
                 System.out.println("Month doesnt have smaller number of days");
             }
 
+            
+            /* display all months with a larger number of days */
+            
               //Вивести на екран всі місяці які мають більшу кількість днів.
 
             flag = false;
@@ -113,6 +173,8 @@ public class Main {
             }
 
             
+            /* display the next season */    
+            
          // Вивести на екран наступну пору року.
             
             Season[] mass = Season.values();
@@ -129,6 +191,9 @@ public class Main {
                 }
             }
             
+            
+            /* display the previous season */   
+            
          // Вивести на екран попередню пору року.
             
  
@@ -141,6 +206,9 @@ public class Main {
                     System.out.println(mass[ordinalSeason-1]); 
                 }
             }
+            
+            
+            /* display all months with an even number of days */   
             
             //  Вивести на екран всі місяці які мають парну кількість днів.
             
@@ -166,6 +234,9 @@ public class Main {
                 System.out.println("Month doesnt have even number of days");
             }
 
+            
+            /* display all months with an odd number of days */   
+            
             //  Вивести на екран всі місяці які мають непарну кількість днів.
             
 
@@ -190,6 +261,10 @@ public class Main {
                 System.out.println("Month doesnt have odd number of days");
             }
             
+            
+            /* display whether the month entered from the console has an even number of days */   
+            
+            
             //Вивести на екран чи введений з консолі місяць має парну кількість днів.
 
  
@@ -209,22 +284,5 @@ public class Main {
         }
 
 
-    
-    
-    
-    
-    
-    private static boolean isMonthPresent(Month[] mas, String month) {
-        boolean flag = false;
-
-        for (Month m : mas) {
-
-            if (m.name().equals(month)) {
-                System.out.println("Month exist");
-                flag = true;
-            }
-        }
-        return flag;
-    }
 
 }
